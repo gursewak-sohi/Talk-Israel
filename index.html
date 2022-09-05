@@ -14,22 +14,22 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body class="antialiased" x-data="{ 'showModal': false}" @keydown.escape="showModal = false">
-    <!-- Modal -->
-    <div :class="{'opacity-100 visible': showModal, 'opacity-0 invisible': !showModal }" class="opacity-0 relative z-50 ease duration-300" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<body class="antialiased" x-data="{ 'showLoginModal': false, 'showSignUpModal': false}" @keydown.escape="showLoginModal = false; showSignUpModal = false">
+    <!-- Login Modal -->
+    <div :class="{'opacity-100 visible': showLoginModal, 'opacity-0 invisible': !showLoginModal }" class="opacity-0 relative z-50 ease duration-300" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <!-- Background Backdrop -->
         <div class="fixed inset-0 bg-black/80 transition-opacity ease-out duration-300"></div>
         <!-- Modal Content -->
         <div class="fixed z-10 inset-0 overflow-y-auto">
             <div class="flex justify-center items-center min-h-full">
-                <div @click.away="showModal = false" x-show="showModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" x-transition:leave="ease-in duration-300"
+                <div @click.away="showLoginModal = false" x-show="showLoginModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" x-transition:leave="ease-in duration-300"
                     x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-4 scale-95" class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all m-3 sm:m-4 sm:max-w-md sm:w-full">
-                    <button @click="showModal = false" type="button" class="absolute active:scale-95 top-3 right-2.5 text-gray-400 bg-transparent duration-300 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="authentication-modal">
+                    <button @click="showLoginModal = false" type="button" class="absolute active:scale-95 top-3 right-2.5 text-gray-400 bg-transparent duration-300 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="authentication-modal">
                         <svg aria-hidden="true" class="w-5 h-5 duration-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         <span class="sr-only">Close modal</span>
                     </button>
                     <div class="px-6 md:px-10 py-8">
-                        <h3 class="mb-6 text-3xl font-bold text-gray-900">Sign in to your account</h3>
+                        <h3 class="mb-6 text-3xl font-bold text-center text-gray-900">Login</h3>
                         <form class="space-y-6" action="#">
                             <div>
                                 <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Email address</label>
@@ -54,48 +54,116 @@
                                 <a href="#" class="text-sm text-primary font-medium">Forgot your password?</a>
                             </div>
 
-                            <button type="submit" class="w-full text-white bg-primary duration-200 active:scale-95 hover:bg-primary/90 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                            <button type="submit" class="w-full text-white bg-primary duration-200 active:scale-95 hover:bg-primary/90 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</button>
                             <div class="flex items-center">
                                 <span class="flex-1 border-b border-gray-300"></span>
                                 <span class="text-sm text-gray-500 px-2">Or continue with</span>
                                 <span class="flex-1 border-b border-gray-300"></span>
                             </div>
                             <div class="flex items-center gap-x-3">
-                                <button type="button" class="border border-gray-300 rounded-md flex-1 flex justify-center py-2 active:scale-95">
-                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_22_12780)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.3333 10C20.3333 4.477 15.8563 0 10.3333 0C4.81031 0 0.333313 4.477 0.333313 10C0.333313 14.991 3.99031 19.128 8.77131 19.878V12.891H6.23131V10H8.77131V7.797C8.77131 5.291 10.2633 3.907 12.5483 3.907C13.6423 3.907 14.7863 4.102 14.7863 4.102V6.562H13.5263C12.2833 6.562 11.8963 7.333 11.8963 8.124V10H14.6693L14.2263 12.89H11.8963V19.878C16.6763 19.128 20.3333 14.991 20.3333 10Z" fill="#6B7280"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_22_12780">
-                                        <rect width="20" height="20" fill="white" transform="translate(0.333313)"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>    
-                                </button>
-                                <button type="button" class="border border-gray-300 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                <button type="button" class="bg-gray-200 duration-200 hover:bg-gray-200/70 rounded-md flex-1 flex justify-center py-2 active:scale-95">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_22_12782)">
-                                        <path d="M6.28994 18.251C13.8369 18.251 17.9649 11.998 17.9649 6.57596C17.9649 6.39796 17.9649 6.22096 17.9529 6.04596C18.7561 5.46448 19.4493 4.74457 19.9999 3.91996C19.251 4.25196 18.4565 4.46972 17.6429 4.56596C18.4996 4.05302 19.1407 3.24631 19.4469 2.29596C18.6416 2.77384 17.7606 3.11069 16.8419 3.29196C16.2233 2.63372 15.405 2.19779 14.5136 2.05166C13.6222 1.90553 12.7075 2.05736 11.9111 2.48363C11.1147 2.9099 10.481 3.58683 10.1082 4.40962C9.73544 5.2324 9.64431 6.15514 9.84894 7.03496C8.21753 6.9532 6.62154 6.52928 5.16458 5.79073C3.70763 5.05217 2.42227 4.01548 1.39194 2.74796C0.867257 3.65116 0.706528 4.72038 0.942475 5.73792C1.17842 6.75547 1.79331 7.64483 2.66194 8.22496C2.0092 8.20602 1.37059 8.03042 0.799939 7.71296V7.76496C0.800328 8.71225 1.12833 9.63026 1.72834 10.3633C2.32834 11.0964 3.16341 11.5993 4.09194 11.787C3.48775 11.9517 2.85383 11.9756 2.23894 11.857C2.5011 12.6724 3.01162 13.3856 3.69907 13.8966C4.38652 14.4076 5.21651 14.6909 6.07294 14.707C5.22206 15.3755 4.24773 15.8698 3.20567 16.1615C2.16361 16.4532 1.07426 16.5366 -6.10352e-05 16.407C1.87654 17.6113 4.06013 18.2501 6.28994 18.247" fill="#6B7280"/>
+                                        <g clip-path="url(#clip0_44_14904)">
+                                        <path d="M19.805 10.2303C19.805 9.55056 19.7499 8.86711 19.6323 8.19836H10.2V12.0492H15.6015C15.3773 13.2911 14.6571 14.3898 13.6026 15.0879V17.5866H16.825C18.7174 15.8449 19.805 13.2728 19.805 10.2303Z" fill="#4285F4"/>
+                                        <path d="M10.2 20.0006C12.897 20.0006 15.1715 19.1151 16.8287 17.5865L13.6062 15.0879C12.7096 15.6979 11.5522 16.0433 10.2037 16.0433C7.5948 16.0433 5.38279 14.2832 4.58911 11.9169H1.26373V14.4927C2.96133 17.8695 6.41898 20.0006 10.2 20.0006Z" fill="#34A853"/>
+                                        <path d="M4.58546 11.9169C4.16657 10.6749 4.16657 9.33008 4.58546 8.08811V5.51233H1.26376C-0.154572 8.33798 -0.154572 11.667 1.26376 14.4927L4.58546 11.9169Z" fill="#FBBC04"/>
+                                        <path d="M10.2 3.95805C11.6257 3.936 13.0036 4.47247 14.0361 5.45722L16.8911 2.60218C15.0833 0.904587 12.6839 -0.0287217 10.2 0.000673888C6.41898 0.000673888 2.96133 2.13185 1.26373 5.51234L4.58543 8.08813C5.37544 5.71811 7.59113 3.95805 10.2 3.95805Z" fill="#EA4335"/>
                                         </g>
                                         <defs>
-                                        <clipPath id="clip0_22_12782">
+                                        <clipPath id="clip0_44_14904">
                                         <rect width="20" height="20" fill="white"/>
                                         </clipPath>
                                         </defs>
                                     </svg>        
                                 </button>
-                                <button type="button" class="border border-gray-300 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                <button type="button" class="bg-blue-600 duration-200 hover:bg-blue-600/90 rounded-md flex-1 flex justify-center py-2 active:scale-95">
                                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_22_12784)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6666 0C5.14363 0 0.666626 4.484 0.666626 10.017C0.666626 14.442 3.53163 18.197 7.50563 19.521C8.00563 19.613 8.18763 19.304 8.18763 19.038C8.18763 18.801 8.17963 18.17 8.17463 17.335C5.39263 17.94 4.80563 15.992 4.80563 15.992C4.35163 14.834 3.69563 14.526 3.69563 14.526C2.78763 13.906 3.76463 13.918 3.76463 13.918C4.76763 13.988 5.29563 14.95 5.29563 14.95C6.18763 16.48 7.63663 16.038 8.20563 15.782C8.29763 15.135 8.55563 14.694 8.84163 14.444C6.62163 14.191 4.28663 13.331 4.28663 9.493C4.28663 8.4 4.67663 7.505 5.31563 6.805C5.21263 6.552 4.86963 5.533 5.41363 4.155C5.41363 4.155 6.25363 3.885 8.16363 5.181C8.97939 4.95851 9.82106 4.84519 10.6666 4.844C11.5166 4.848 12.3716 4.959 13.1706 5.181C15.0796 3.885 15.9176 4.154 15.9176 4.154C16.4636 5.533 16.1206 6.552 16.0176 6.805C16.6576 7.505 17.0456 8.4 17.0456 9.493C17.0456 13.341 14.7066 14.188 12.4796 14.435C12.8386 14.745 13.1576 15.356 13.1576 16.291C13.1576 17.629 13.1456 18.71 13.1456 19.038C13.1456 19.306 13.3256 19.618 13.8336 19.52C15.8249 18.8521 17.556 17.5753 18.7821 15.87C20.0082 14.1648 20.6675 12.1173 20.6666 10.017C20.6666 4.484 16.1886 0 10.6666 0Z" fill="#6B7280"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1665 10C20.1665 4.477 15.6895 0 10.1665 0C4.6435 0 0.166504 4.477 0.166504 10C0.166504 14.991 3.8235 19.128 8.6045 19.878V12.891H6.0645V10H8.6045V7.797C8.6045 5.291 10.0965 3.907 12.3815 3.907C13.4755 3.907 14.6195 4.102 14.6195 4.102V6.562H13.3595C12.1165 6.562 11.7295 7.333 11.7295 8.124V10H14.5025L14.0595 12.89H11.7295V19.878C16.5095 19.128 20.1665 14.991 20.1665 10Z" fill="white"/>
+                                    </svg>               
+                                </button>
+                                <button type="button" class="bg-black duration-200 hover:bg-black/90 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.6231 15.7282C17.3179 16.4333 16.9566 17.0824 16.538 17.6791C15.9674 18.4926 15.5003 19.0557 15.1402 19.3684C14.5821 19.8817 13.9841 20.1445 13.3438 20.1595C12.8841 20.1595 12.3297 20.0287 11.6844 19.7633C11.037 19.4992 10.442 19.3684 9.89795 19.3684C9.32738 19.3684 8.71545 19.4992 8.06092 19.7633C7.40539 20.0287 6.8773 20.167 6.47354 20.1807C5.85949 20.2068 5.24743 19.9365 4.6365 19.3684C4.24657 19.0283 3.75884 18.4453 3.17457 17.6193C2.54769 16.7373 2.03231 15.7145 1.62855 14.5484C1.19614 13.289 0.97937 12.0693 0.97937 10.8886C0.97937 9.53602 1.27163 8.36946 1.85703 7.39189C2.3171 6.60667 2.92915 5.98726 3.69518 5.53255C4.46122 5.07784 5.28892 4.84612 6.18028 4.8313C6.668 4.8313 7.30759 4.98216 8.1024 5.27866C8.89497 5.57615 9.40388 5.72702 9.627 5.72702C9.79381 5.72702 10.3591 5.55061 11.3175 5.19893C12.2238 4.87278 12.9888 4.73774 13.6154 4.79093C15.3134 4.92797 16.5891 5.59733 17.4375 6.80325C15.9188 7.72339 15.1676 9.01216 15.1826 10.6654C15.1963 11.9532 15.6635 13.0248 16.5816 13.8757C16.9977 14.2706 17.4624 14.5759 17.9794 14.7926C17.8673 15.1178 17.7489 15.4292 17.6231 15.7282ZM13.7287 0.403763C13.7287 1.41311 13.36 2.35554 12.625 3.22784C11.738 4.26484 10.6651 4.86406 9.50167 4.7695C9.48685 4.64841 9.47825 4.52097 9.47825 4.38705C9.47825 3.41807 9.90007 2.38108 10.6492 1.53319C11.0231 1.1039 11.4988 0.74694 12.0756 0.46219C12.6511 0.181688 13.1956 0.0265642 13.7076 0C13.7225 0.134934 13.7287 0.26989 13.7287 0.403763Z" fill="white"/>
+                                    </svg>           
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div :class="{'opacity-100 visible': showSignUpModal, 'opacity-0 invisible': !showSignUpModal }" class="opacity-0 relative z-50 ease duration-300" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background Backdrop -->
+        <div class="fixed inset-0 bg-black/80 transition-opacity ease-out duration-300"></div>
+        <!-- Modal Content -->
+        <div class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex justify-center items-center min-h-full">
+                <div @click.away="showSignUpModal = false" x-show="showSignUpModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" x-transition:leave="ease-in duration-300"
+                    x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-4 scale-95" class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all m-3 sm:m-4 sm:max-w-md sm:w-full">
+                    <button @click="showSignUpModal = false" type="button" class="absolute active:scale-95 top-3 right-2.5 text-gray-400 bg-transparent duration-300 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="authentication-modal">
+                        <svg aria-hidden="true" class="w-5 h-5 duration-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="px-6 md:px-10 py-8">
+                        <h3 class="mb-6 text-3xl font-bold text-center text-gray-900">Sign up</h3>
+                        <form class="space-y-6" action="#">
+                            <div>
+                                <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Email address</label>
+                                <input type="email" name="email" id="email" class="border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="password" class="block mb-1 text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" name="password" id="password" class="border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none block w-full p-2.5" required>
+                            </div>
+                            <div class="flex justify-between">
+                                <label class="cursor-pointer flex items-center" for="remember2">
+                                    <div class="relative flex">
+                                        <input class="appearance-none w-4 h-4 rounded bg-white border border-gray-300 mr-2 duration-200 checked:bg-primary checked:border-primary" id="remember2" type="checkbox">
+                                        <div class="absolute w-4 h-4 flex justify-center items-center">
+                                            <svg class="scale-110" width="10" height="9" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.11978 3.90478L3.77012 6.5551L8.88023 1.44495" stroke="white" stroke-width="1.7"/>
+                                            </svg> 
+                                        </div>  
+                                    </div>
+                                    <span class="text-sm text-gray-900">Remember Me</span>
+                                </label>
+                                <a href="#" @click="showLoginModal = true; showSignUpModal = false;" class="text-sm text-primary font-medium">Already have an account?</a>
+                            </div>
+
+                            <button type="submit" class="w-full text-white bg-primary duration-200 active:scale-95 hover:bg-primary/90 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign up</button>
+                            <div class="flex items-center">
+                                <span class="flex-1 border-b border-gray-300"></span>
+                                <span class="text-sm text-gray-500 px-2">Or continue with</span>
+                                <span class="flex-1 border-b border-gray-300"></span>
+                            </div>
+                            <div class="flex items-center gap-x-3">
+                                <button type="button" class="bg-gray-200 duration-200 hover:bg-gray-200/70 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_44_14904)">
+                                        <path d="M19.805 10.2303C19.805 9.55056 19.7499 8.86711 19.6323 8.19836H10.2V12.0492H15.6015C15.3773 13.2911 14.6571 14.3898 13.6026 15.0879V17.5866H16.825C18.7174 15.8449 19.805 13.2728 19.805 10.2303Z" fill="#4285F4"/>
+                                        <path d="M10.2 20.0006C12.897 20.0006 15.1715 19.1151 16.8287 17.5865L13.6062 15.0879C12.7096 15.6979 11.5522 16.0433 10.2037 16.0433C7.5948 16.0433 5.38279 14.2832 4.58911 11.9169H1.26373V14.4927C2.96133 17.8695 6.41898 20.0006 10.2 20.0006Z" fill="#34A853"/>
+                                        <path d="M4.58546 11.9169C4.16657 10.6749 4.16657 9.33008 4.58546 8.08811V5.51233H1.26376C-0.154572 8.33798 -0.154572 11.667 1.26376 14.4927L4.58546 11.9169Z" fill="#FBBC04"/>
+                                        <path d="M10.2 3.95805C11.6257 3.936 13.0036 4.47247 14.0361 5.45722L16.8911 2.60218C15.0833 0.904587 12.6839 -0.0287217 10.2 0.000673888C6.41898 0.000673888 2.96133 2.13185 1.26373 5.51234L4.58543 8.08813C5.37544 5.71811 7.59113 3.95805 10.2 3.95805Z" fill="#EA4335"/>
                                         </g>
                                         <defs>
-                                        <clipPath id="clip0_22_12784">
-                                        <rect width="20" height="20" fill="white" transform="translate(0.666626)"/>
+                                        <clipPath id="clip0_44_14904">
+                                        <rect width="20" height="20" fill="white"/>
                                         </clipPath>
                                         </defs>
-                                    </svg>       
+                                    </svg>        
+                                </button>
+                                <button type="button" class="bg-blue-600 duration-200 hover:bg-blue-600/90 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1665 10C20.1665 4.477 15.6895 0 10.1665 0C4.6435 0 0.166504 4.477 0.166504 10C0.166504 14.991 3.8235 19.128 8.6045 19.878V12.891H6.0645V10H8.6045V7.797C8.6045 5.291 10.0965 3.907 12.3815 3.907C13.4755 3.907 14.6195 4.102 14.6195 4.102V6.562H13.3595C12.1165 6.562 11.7295 7.333 11.7295 8.124V10H14.5025L14.0595 12.89H11.7295V19.878C16.5095 19.128 20.1665 14.991 20.1665 10Z" fill="white"/>
+                                    </svg>               
+                                </button>
+                                <button type="button" class="bg-black duration-200 hover:bg-black/90 rounded-md flex-1 flex justify-center py-2 active:scale-95">
+                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.6231 15.7282C17.3179 16.4333 16.9566 17.0824 16.538 17.6791C15.9674 18.4926 15.5003 19.0557 15.1402 19.3684C14.5821 19.8817 13.9841 20.1445 13.3438 20.1595C12.8841 20.1595 12.3297 20.0287 11.6844 19.7633C11.037 19.4992 10.442 19.3684 9.89795 19.3684C9.32738 19.3684 8.71545 19.4992 8.06092 19.7633C7.40539 20.0287 6.8773 20.167 6.47354 20.1807C5.85949 20.2068 5.24743 19.9365 4.6365 19.3684C4.24657 19.0283 3.75884 18.4453 3.17457 17.6193C2.54769 16.7373 2.03231 15.7145 1.62855 14.5484C1.19614 13.289 0.97937 12.0693 0.97937 10.8886C0.97937 9.53602 1.27163 8.36946 1.85703 7.39189C2.3171 6.60667 2.92915 5.98726 3.69518 5.53255C4.46122 5.07784 5.28892 4.84612 6.18028 4.8313C6.668 4.8313 7.30759 4.98216 8.1024 5.27866C8.89497 5.57615 9.40388 5.72702 9.627 5.72702C9.79381 5.72702 10.3591 5.55061 11.3175 5.19893C12.2238 4.87278 12.9888 4.73774 13.6154 4.79093C15.3134 4.92797 16.5891 5.59733 17.4375 6.80325C15.9188 7.72339 15.1676 9.01216 15.1826 10.6654C15.1963 11.9532 15.6635 13.0248 16.5816 13.8757C16.9977 14.2706 17.4624 14.5759 17.9794 14.7926C17.8673 15.1178 17.7489 15.4292 17.6231 15.7282ZM13.7287 0.403763C13.7287 1.41311 13.36 2.35554 12.625 3.22784C11.738 4.26484 10.6651 4.86406 9.50167 4.7695C9.48685 4.64841 9.47825 4.52097 9.47825 4.38705C9.47825 3.41807 9.90007 2.38108 10.6492 1.53319C11.0231 1.1039 11.4988 0.74694 12.0756 0.46219C12.6511 0.181688 13.1956 0.0265642 13.7076 0C13.7225 0.134934 13.7287 0.26989 13.7287 0.403763Z" fill="white"/>
+                                    </svg>           
                                 </button>
                             </div>
                         </form>
@@ -118,8 +186,8 @@
                     </div>
                     <!-- Before Logged In -->
                     <div class="flex justify-end items-center flex-1">
-                        <button @click="showModal = true;" class="text-gray-300 text-base font-medium active:scale-95">Sign in</button>
-                        <button class="text-primary bg-white text-base font-medium px-4 py-2 rounded-md shadow-sm ml-5 lg:ml-9 active:scale-95">Sign up</button>
+                        <button @click="showLoginModal = true;" class="text-gray-300 text-base font-medium active:scale-95">Login</button>
+                        <button @click="showSignUpModal = true;" class="text-primary bg-white text-base font-medium px-4 py-2 rounded-md shadow-sm ml-5 lg:ml-9 active:scale-95">Sign up</button>
                     </div>
                     <!-- After Logged In -->
                     <div class="hidden justify-end items-center flex-1">
@@ -225,38 +293,53 @@
             </div>
         </div>
         <div class="bg-white">
-            <div class="max-w-full mx-auto px-3 md:px-5 2xl:px-20">
+            <div class="max-w-full mx-auto px-3 md:px-5">
                 <div class="flex items-center justify-center py-3">
                     <ul class="text-base text-gray-700 flex items-center font-medium gap-x-1 whitespace-nowrap overflow-auto">
                         <li>
                             <a class="active inline-block px-3 py-2 text-primary bg-primary/10 rounded-md active:scale-95" href="javascript:;">News</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Science</a>
-                        </li>
-                        <li>
                             <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Health</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Travel</a>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Politics</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">History</a>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Food</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">U.S. Foreign Alliance</a>
                         </li>
                         <li>
                             <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Tech & Startups</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Normalizaion</a>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Sports</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Travel</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Science</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">National Security</a>
                         </li>
                         <li>
                             <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Art & Culture</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Sports</a>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">History</a>
                         </li>
                         <li>
-                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Food</a>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Normalization</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Religion</a>
+                        </li>
+                        <li>
+                            <a class="inline-block px-3 py-2 rounded-md active:scale-95" href="javascript:;">Education</a>
                         </li>
                     </ul>
                 </div>
@@ -355,13 +438,13 @@
                 </div>
             </div>
             <div class="absolute bottom-6 lg:inset-y-0 right-16 lg:right-auto lg:left-10 xl:left-20 z-10 flex items-center">
-                <button @click="swiper.slidePrev()" class="bg-white active:scale-95 -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
-                    <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <button @click="swiper.slidePrev()" class="bg-white/10 active:scale-95 -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+                    <svg viewBox="0 0 20 20" class="chevron-left w-6 h-6 fill-white"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
             <div class="absolute bottom-6 lg:inset-y-0 right-6 lg:right-10 xl:right-20 z-10 flex items-center">
-                <button @click="swiper.slideNext()" class="bg-white active:scale-95 -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                <button @click="swiper.slideNext()" class="bg-white/10 active:scale-95 -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+                <svg viewBox="0 0 20 20" class="chevron-right w-6 h-6 fill-white"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
             </button>
             </div>
         </div>
@@ -372,7 +455,7 @@
         <div class="mx-auto max-w-7xl px-3 md:px-5 py-12 md:py-20">
             <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 md:gap-y-12 gap-x-8 xl:gap-x-14">
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -409,7 +492,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-1.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -446,7 +529,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-2.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -484,7 +567,7 @@
 
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-3.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -521,7 +604,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-4.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -558,7 +641,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-5.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -596,7 +679,7 @@
 
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-6.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -633,7 +716,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-7.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -670,7 +753,7 @@
                     </div>
                 </li>
                 <li class="flex flex-col shadow-card rounded-xl overflow-hidden border border-gray-200 group">
-                    <a class="block w-full h-60 overflow-hidden" href="javascript:;">
+                    <a class="block w-full h-52 overflow-hidden" href="javascript:;">
                         <img src="./assets/images/stories-thumb/image-8.png" class="w-full h-full object-cover group-hover:scale-110 duration-500" alt="">
                     </a>
                     <div class="flex flex-col items-start pt-2.5 px-6 pb-5 flex-1">
@@ -834,8 +917,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-200 py-8 pb-12 md:pb-16">
-                <p class="block text-center text-gray-400 text-base">© 2020 Workflow, Inc. All rights reserved.</p>
+            <div class="pt-8 pb-12 md:pb-16">
+                <p class="block text-gray-400 text-base">© 2020 Workflow, Inc. All rights reserved.</p>
             </div>
         </div>
     </footer>
